@@ -13,7 +13,6 @@ import { toast } from "sonner";
 import { Trash2, Users, TrendingUp, Wallet, ClipboardList } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 
-
 type Company = {
   id: string;
   name: string;
@@ -34,15 +33,8 @@ type Entry = {
 };
 
 export function CompanyDashboard({ company }: { company: Company }) {
+  const navigate = useNavigate();
   const [entries, setEntries] = useState<Entry[]>([]);
-  const [form, setForm] = useState({
-    gender: "female" as "female" | "male",
-    age: "",
-    region: company.region,
-    role: "",
-    salary: "",
-  });
-  const [loading, setLoading] = useState(false);
 
   const load = async () => {
     const { data } = await supabase
@@ -56,34 +48,6 @@ export function CompanyDashboard({ company }: { company: Company }) {
   useEffect(() => {
     load();
   }, [company.id]);
-
-  const handleAdd = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const parsed = entrySchema.safeParse({
-      gender: form.gender,
-      age: Number(form.age),
-      region: form.region,
-      role: form.role,
-      salary: Number(form.salary),
-    });
-    if (!parsed.success) {
-      toast.error(parsed.error.issues[0].message);
-      return;
-    }
-    setLoading(true);
-    const { error } = await supabase.from("salary_entries").insert({
-      ...parsed.data,
-      company_id: company.id,
-    });
-    setLoading(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Registro adicionado!");
-    setForm({ ...form, age: "", role: "", salary: "" });
-    load();
-  };
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("salary_entries").delete().eq("id", id);
@@ -129,83 +93,26 @@ export function CompanyDashboard({ company }: { company: Company }) {
         />
       </div>
 
-      <div className="rounded-xl border-2 border-primary bg-card p-6 shadow-blue">
-        <h2 className="mb-4 border-b-2 border-gold pb-2 text-xl font-bold">
-          Adicionar registro ao questionário
-        </h2>
-        <form onSubmit={handleAdd} className="grid gap-4 md:grid-cols-6">
-          <div className="space-y-2 md:col-span-1">
-            <Label>Gênero</Label>
-            <Select
-              value={form.gender}
-              onValueChange={(v) => setForm({ ...form, gender: v as "female" | "male" })}
-            >
-              <SelectTrigger className="border-2 border-input">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="female">Mulher</SelectItem>
-                <SelectItem value="male">Homem</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2 md:col-span-1">
-            <Label>Idade</Label>
-            <Input
-              type="number"
-              min={16}
-              max={100}
-              value={form.age}
-              onChange={(e) => setForm({ ...form, age: e.target.value })}
-              required
-              className="border-2 border-input focus-visible:border-primary"
-            />
-          </div>
-          <div className="space-y-2 md:col-span-1">
-            <Label>Região</Label>
-            <Select value={form.region} onValueChange={(v) => setForm({ ...form, region: v })}>
-              <SelectTrigger className="border-2 border-input">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {REGIONS.map((r) => (
-                  <SelectItem key={r} value={r}>
-                    {r}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2 md:col-span-2">
-            <Label>Cargo</Label>
-            <Input
-              value={form.role}
-              onChange={(e) => setForm({ ...form, role: e.target.value })}
-              maxLength={80}
-              required
-              className="border-2 border-input focus-visible:border-primary"
-            />
-          </div>
-          <div className="space-y-2 md:col-span-1">
-            <Label>Salário (R$)</Label>
-            <Input
-              type="number"
-              min={0}
-              step="0.01"
-              value={form.salary}
-              onChange={(e) => setForm({ ...form, salary: e.target.value })}
-              required
-              className="border-2 border-input focus-visible:border-primary"
-            />
+      <div className="rounded-xl border-2 border-gold bg-card p-6 shadow-gold">
+        <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-gold">
+              <ClipboardList className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-primary">Enviar dados ao questionário</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Adicione registros de funcionários para alimentar a pesquisa.
+              </p>
+            </div>
           </div>
           <Button
-            type="submit"
-            disabled={loading}
-            className="md:col-span-6 bg-gradient-gold text-primary font-bold border-2 border-gold-deep shadow-gold hover:opacity-90"
+            onClick={() => navigate({ to: "/dashboard/questionario" })}
+            className="bg-gradient-gold text-primary font-bold border-2 border-gold-deep shadow-gold hover:opacity-90"
           >
-            {loading ? "Salvando..." : "Adicionar ao questionário"}
+            Abrir questionário
           </Button>
-        </form>
+        </div>
       </div>
 
       <div className="rounded-xl border-2 border-primary bg-card p-6 shadow-blue">
@@ -214,7 +121,7 @@ export function CompanyDashboard({ company }: { company: Company }) {
         </h2>
         {entries.length === 0 ? (
           <p className="py-6 text-center text-sm text-muted-foreground">
-            Nenhum registro ainda. Use o formulário acima para começar.
+            Nenhum registro ainda. Clique em "Abrir questionário" acima para começar.
           </p>
         ) : (
           <div className="overflow-x-auto">
