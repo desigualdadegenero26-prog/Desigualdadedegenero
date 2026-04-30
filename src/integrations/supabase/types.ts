@@ -14,10 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          cnpj: string
+          created_at: string
+          id: string
+          name: string
+          region: string
+          sector: string
+          size: string
+          user_id: string
+        }
+        Insert: {
+          cnpj: string
+          created_at?: string
+          id?: string
+          name: string
+          region: string
+          sector: string
+          size: string
+          user_id: string
+        }
+        Update: {
+          cnpj?: string
+          created_at?: string
+          id?: string
+          name?: string
+          region?: string
+          sector?: string
+          size?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      salary_entries: {
+        Row: {
+          age: number
+          company_id: string
+          created_at: string
+          gender: string
+          id: string
+          region: string
+          role: string
+          salary: number
+        }
+        Insert: {
+          age: number
+          company_id: string
+          created_at?: string
+          gender: string
+          id?: string
+          region: string
+          role: string
+          salary: number
+        }
+        Update: {
+          age?: number
+          company_id?: string
+          created_at?: string
+          gender?: string
+          id?: string
+          region?: string
+          role?: string
+          salary?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "salary_entries_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      salary_aggregates: {
+        Row: {
+          age_range: string | null
+          avg_salary: number | null
+          gender: string | null
+          region: string | null
+          sample_size: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
