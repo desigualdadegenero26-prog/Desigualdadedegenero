@@ -151,5 +151,21 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   }
+
+  h1, h2, h3, h4 {
+    color: var(--blue-deep);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-gold { background: var(--gradient-gold); }
+  .bg-gradient-blue { background: var(--gradient-blue); }
+  .text-gold { color: var(--gold); }
+  .border-gold { border-color: var(--gold); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-blue { box-shadow: var(--shadow-blue); }
 }
