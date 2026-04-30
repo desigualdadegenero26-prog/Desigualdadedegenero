@@ -1,26 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { SiteHeader } from "@/components/site-header";
+import { HeroSection } from "@/components/hero-section";
+import { SalaryCharts } from "@/components/salary-charts";
+import { AboutSection } from "@/components/about-section";
+import { AuthModal } from "@/components/auth-modal";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
+  const [authOpen, setAuthOpen] = useState(false);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
+      <main>
+        <HeroSection onJoin={() => setAuthOpen(true)} />
+        <SalaryCharts />
+        <AboutSection />
+      </main>
+      <footer className="border-t-2 border-primary bg-card py-8">
+        <div className="mx-auto max-w-7xl px-4 text-center text-sm text-muted-foreground">
+          <p>
+            <span className="font-bold text-primary">EquiSalário</span> · Dados agregados de empresas
+            participantes · {new Date().getFullYear()}
+          </p>
+        </div>
+      </footer>
+      <AuthModal open={authOpen} onOpenChange={setAuthOpen} />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
