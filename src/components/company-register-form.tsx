@@ -33,6 +33,7 @@ interface Props {
 
 export function CompanyRegisterForm({ onCreated }: Props) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", cnpj: "", sector: "", size: "", region: "" });
   const [loading, setLoading] = useState(false);
 
