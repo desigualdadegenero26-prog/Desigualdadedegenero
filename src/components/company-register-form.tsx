@@ -58,6 +58,7 @@ export function CompanyRegisterForm({ onCreated }: Props) {
     }
     toast.success("Empresa cadastrada! Agora envie os dados da pesquisa.");
     onCreated(data);
+    navigate({ to: "/dashboard/questionario" });
   };
 
   return (
