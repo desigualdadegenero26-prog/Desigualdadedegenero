@@ -13,15 +13,6 @@ import { toast } from "sonner";
 import { Trash2, Users, TrendingUp, Wallet, ClipboardList } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 
-const REGIONS = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"];
-
-const entrySchema = z.object({
-  gender: z.enum(["male", "female"]),
-  age: z.number().int().min(16).max(100),
-  region: z.string().min(1),
-  role: z.string().trim().min(2).max(80),
-  salary: z.number().positive().max(10000000),
-});
 
 type Company = {
   id: string;
