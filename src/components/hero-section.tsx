@@ -22,8 +22,8 @@ export function HeroSection({ onJoin }: Props) {
           Transparência salarial
         </span>
         <h1 className="mt-5 text-4xl font-extrabold leading-tight md:text-6xl">
-          Igualdade <span className="text-gold">salarial</span> começa com{" "}
-          <span className="text-gold">dados</span>.
+          Desigualdade <span className="text-gold">salarial</span> de{" "}
+          <span className="text-gold">gêneros</span>
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground/80">
           A EquiSalário reúne dados anônimos de empresas brasileiras para revelar a diferença real entre
