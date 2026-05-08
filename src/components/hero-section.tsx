@@ -7,16 +7,6 @@ interface Props {
 export function HeroSection({ onJoin }: Props) {
   return (
     <section className="relative overflow-hidden border-b-2 border-primary bg-secondary/30">
-      {/* Decorative diagonal stripes (brand pattern) */}
-      <div className="pointer-events-none absolute inset-0 -z-0">
-        <div className="absolute -left-32 top-0 h-[120%] w-24 rotate-[20deg] bg-primary" />
-        <div className="absolute -left-20 top-0 h-[120%] w-6 rotate-[20deg] bg-gradient-gold" />
-        <div className="absolute -left-8 top-0 h-[120%] w-12 rotate-[20deg] bg-primary" />
-        <div className="absolute -right-32 top-0 h-[120%] w-24 rotate-[20deg] bg-primary" />
-        <div className="absolute -right-20 top-0 h-[120%] w-6 rotate-[20deg] bg-gradient-gold" />
-        <div className="absolute -right-8 top-0 h-[120%] w-12 rotate-[20deg] bg-primary" />
-      </div>
-
       <div className="relative z-10 mx-auto max-w-4xl px-4 py-24 text-center">
         <span className="inline-block rounded-full border-2 border-primary bg-card px-4 py-1 text-xs font-bold uppercase tracking-wider text-primary">
           Transparência salarial
