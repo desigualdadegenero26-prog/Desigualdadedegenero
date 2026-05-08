@@ -50,33 +50,60 @@ export type Database = {
       salary_entries: {
         Row: {
           age: number
+          benefits: string | null
           company_id: string
+          contract_type: string | null
           created_at: string
+          education: string | null
+          experience_years: number | null
           gender: string
+          has_leadership: boolean | null
+          hierarchy_level: string | null
           id: string
+          race: string | null
           region: string
           role: string
           salary: number
+          weekly_hours: number | null
+          work_modality: string | null
         }
         Insert: {
           age: number
+          benefits?: string | null
           company_id: string
+          contract_type?: string | null
           created_at?: string
+          education?: string | null
+          experience_years?: number | null
           gender: string
+          has_leadership?: boolean | null
+          hierarchy_level?: string | null
           id?: string
+          race?: string | null
           region: string
           role: string
           salary: number
+          weekly_hours?: number | null
+          work_modality?: string | null
         }
         Update: {
           age?: number
+          benefits?: string | null
           company_id?: string
+          contract_type?: string | null
           created_at?: string
+          education?: string | null
+          experience_years?: number | null
           gender?: string
+          has_leadership?: boolean | null
+          hierarchy_level?: string | null
           id?: string
+          race?: string | null
           region?: string
           role?: string
           salary?: number
+          weekly_hours?: number | null
+          work_modality?: string | null
         }
         Relationships: [
           {
