@@ -20,7 +20,7 @@ const credSchema = z.object({
 });
 
 export function AuthModal({ open, onOpenChange }: Props) {
-  const [tab, setTab] = useState<"login" | "signup">("login");
+  const [tab, setTab] = useState<"login" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
