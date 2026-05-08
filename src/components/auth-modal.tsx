@@ -20,7 +20,7 @@ const credSchema = z.object({
 });
 
 export function AuthModal({ open, onOpenChange }: Props) {
-  const [tab, setTab] = useState<"login" | "signup">("login");
+  const [tab, setTab] = useState<"login" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,6 +42,12 @@ export function AuthModal({ open, onOpenChange }: Props) {
           options: { emailRedirectTo: `${window.location.origin}/dashboard` },
         });
         if (error) throw error;
+        // Após signup com auto-confirm, já existe sessão; se não, faz login.
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!sessionData.session) {
+          const { error: signInErr } = await supabase.auth.signInWithPassword(parsed.data);
+          if (signInErr) throw signInErr;
+        }
         toast.success("Conta criada! Agora cadastre sua empresa.");
       } else {
         const { error } = await supabase.auth.signInWithPassword(parsed.data);
@@ -51,7 +57,15 @@ export function AuthModal({ open, onOpenChange }: Props) {
       onOpenChange(false);
       navigate({ to: "/dashboard" });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Erro desconhecido";
+      const rawMsg = err instanceof Error ? err.message : "Erro desconhecido";
+      let msg = rawMsg;
+      if (/invalid login credentials/i.test(rawMsg)) {
+        msg = "E-mail ou senha incorretos. Se ainda não tem conta, use a aba 'Criar conta'.";
+        setTab("signup");
+      } else if (/already registered|user already/i.test(rawMsg)) {
+        msg = "Este e-mail já tem cadastro. Use a aba 'Entrar'.";
+        setTab("login");
+      }
       toast.error(msg);
     } finally {
       setLoading(false);
