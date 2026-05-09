@@ -151,6 +151,8 @@ export function SalaryCharts() {
             data={femaleData}
             colors={COLORS_F}
           />
+          <SectorGapChart gender="male" />
+          <SectorGapChart gender="female" />
         </div>
       </div>
     </section>
