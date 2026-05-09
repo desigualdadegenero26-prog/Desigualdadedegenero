@@ -47,6 +47,57 @@ export type Database = {
         }
         Relationships: []
       }
+      opinion_responses: {
+        Row: {
+          created_at: string
+          equal_pay_brazil: string
+          id: string
+          inequality_factors: string[]
+          inequality_factors_other: string | null
+          inequality_is_problem: string
+          maternity_impact: string
+          most_unequal_sector: string
+          most_unequal_sector_other: string | null
+          public_policies: string
+          salary_transparency: string
+          same_growth_opportunities: string
+          should_receive_equal: string
+          witnessed_inequality: string
+        }
+        Insert: {
+          created_at?: string
+          equal_pay_brazil: string
+          id?: string
+          inequality_factors?: string[]
+          inequality_factors_other?: string | null
+          inequality_is_problem: string
+          maternity_impact: string
+          most_unequal_sector: string
+          most_unequal_sector_other?: string | null
+          public_policies: string
+          salary_transparency: string
+          same_growth_opportunities: string
+          should_receive_equal: string
+          witnessed_inequality: string
+        }
+        Update: {
+          created_at?: string
+          equal_pay_brazil?: string
+          id?: string
+          inequality_factors?: string[]
+          inequality_factors_other?: string | null
+          inequality_is_problem?: string
+          maternity_impact?: string
+          most_unequal_sector?: string
+          most_unequal_sector_other?: string | null
+          public_policies?: string
+          salary_transparency?: string
+          same_growth_opportunities?: string
+          should_receive_equal?: string
+          witnessed_inequality?: string
+        }
+        Relationships: []
+      }
       salary_entries: {
         Row: {
           age: number
