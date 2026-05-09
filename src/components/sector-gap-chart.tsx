@@ -36,7 +36,7 @@ const DATA: Record<Gender, { sector: string; y2023: number; y2025: number }[]> =
 
 const COLORS: Record<Gender, { c2023: string; c2025: string }> = {
   male: { c2023: "#93c5fd", c2025: "#1e3a8a" },
-  female: { c2023: "#fbcfe8", c2025: "#be123c" },
+  female: { c2023: "#fde68a", c2025: "#b8860b" },
 };
 
 export function SectorGapChart({ gender }: { gender: Gender }) {
