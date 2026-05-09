@@ -139,18 +139,6 @@ export function SalaryCharts() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <ChartCard
-            title="Salário médio — Homens"
-            subtitle="Por idade × região"
-            data={maleData}
-            colors={COLORS_M}
-          />
-          <ChartCard
-            title="Salário médio — Mulheres"
-            subtitle="Por idade × região"
-            data={femaleData}
-            colors={COLORS_F}
-          />
           <SectorGapChart gender="male" />
           <SectorGapChart gender="female" />
         </div>
