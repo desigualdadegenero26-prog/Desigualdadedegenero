@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { SectorGapChart } from "./sector-gap-chart";
 import {
   BarChart,
   Bar,
@@ -150,6 +151,8 @@ export function SalaryCharts() {
             data={femaleData}
             colors={COLORS_F}
           />
+          <SectorGapChart gender="male" />
+          <SectorGapChart gender="female" />
         </div>
       </div>
     </section>
