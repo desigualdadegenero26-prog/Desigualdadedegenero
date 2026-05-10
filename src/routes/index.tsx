@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { SalaryCharts } from "@/components/salary-charts";
 import { AboutSection } from "@/components/about-section";
 import { AuthModal } from "@/components/auth-modal";
+import borderFrame from "@/assets/border-frame.png";
 
 
 export const Route = createFileRoute("/")({
