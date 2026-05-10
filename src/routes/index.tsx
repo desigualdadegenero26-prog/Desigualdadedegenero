@@ -19,20 +19,27 @@ function Index() {
     <div className="min-h-screen bg-background">
       <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
       <main>
-        <div className="relative">
-          <img
-            src={borderFrame}
-            alt=""
+        <div className="relative overflow-hidden">
+          <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 select-none md:block"
-            style={{ width: "90px", height: "auto", opacity: 0.9 }}
+            className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden w-[80px] select-none md:block lg:w-[110px]"
+            style={{
+              backgroundImage: `url(${borderFrame})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "auto 100%",
+              backgroundPosition: "left center",
+            }}
           />
-          <img
-            src={borderFrame}
-            alt=""
+          <div
             aria-hidden="true"
-            className="pointer-events-none absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 scale-x-[-1] select-none md:block"
-            style={{ width: "90px", height: "auto", opacity: 0.9 }}
+            className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden w-[80px] select-none md:block lg:w-[110px]"
+            style={{
+              backgroundImage: `url(${borderFrame})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "auto 100%",
+              backgroundPosition: "right center",
+              transform: "scaleX(-1)",
+            }}
           />
           <HeroSection onJoin={() => setAuthOpen(true)} />
         </div>
