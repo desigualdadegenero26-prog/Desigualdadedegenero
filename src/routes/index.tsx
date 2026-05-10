@@ -19,7 +19,23 @@ function Index() {
     <div className="min-h-screen bg-background">
       <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
       <main>
-        <HeroSection onJoin={() => setAuthOpen(true)} />
+        <div className="relative">
+          <img
+            src={borderFrame}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 select-none md:block"
+            style={{ width: "90px", height: "auto", opacity: 0.9 }}
+          />
+          <img
+            src={borderFrame}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 scale-x-[-1] select-none md:block"
+            style={{ width: "90px", height: "auto", opacity: 0.9 }}
+          />
+          <HeroSection onJoin={() => setAuthOpen(true)} />
+        </div>
         <SalaryCharts />
         <AboutSection />
       </main>
