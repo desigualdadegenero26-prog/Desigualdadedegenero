@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { SalaryCharts } from "@/components/salary-charts";
 import { AboutSection } from "@/components/about-section";
 import { AuthModal } from "@/components/auth-modal";
-import borderFrame from "@/assets/border-frame.png";
+
 
 
 export const Route = createFileRoute("/")({
@@ -19,30 +19,7 @@ function Index() {
     <div className="min-h-screen bg-background">
       <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
       <main>
-        <div className="relative overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden w-[80px] select-none md:block lg:w-[110px]"
-            style={{
-              backgroundImage: `url(${borderFrame})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "auto 100%",
-              backgroundPosition: "left center",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden w-[80px] select-none md:block lg:w-[110px]"
-            style={{
-              backgroundImage: `url(${borderFrame})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "auto 100%",
-              backgroundPosition: "right center",
-              transform: "scaleX(-1)",
-            }}
-          />
-          <HeroSection onJoin={() => setAuthOpen(true)} />
-        </div>
+        <HeroSection onJoin={() => setAuthOpen(true)} />
         <SalaryCharts />
         <AboutSection />
       </main>
