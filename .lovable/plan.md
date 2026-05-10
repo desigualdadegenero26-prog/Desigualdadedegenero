@@ -1,34 +1,25 @@
-## Objetivo
+Objetivo: fazer o botão “Abrir questionário” realmente abrir a tela com as perguntas.
 
-Adicionar, abaixo de cada um dos dois gráficos existentes ("Salário médio — Homens" e "Salário médio — Mulheres"), um novo gráfico de barras inspirado na imagem enviada, mostrando a **diferença salarial de contratação por setor (2023 vs 2025)**, separado por gênero.
+Plano
+1. Corrigir a estrutura de rota do questionário
+- Ajustar a organização para que a página do questionário seja renderizada corretamente ao acessar `/dashboard/questionario`.
+- Evitar que a rota fique bloqueada por uma página pai sem área de renderização para rotas filhas.
 
-## O que será feito
+2. Garantir que o botão navegue para a tela certa
+- Validar o botão “Abrir questionário” no painel da empresa para continuar apontando para a rota correta.
+- Confirmar que, ao clicar, a navegação leva para a página com o formulário visível.
 
-1. Criar um novo componente `SectorGapChart` em `src/components/sector-gap-chart.tsx` com:
-   - Barras agrupadas por setor: **Total, Indústria, Agropecuária, Construção, Serviços, Comércio**
-   - Duas séries: **2023** (rosa claro / azul claro) e **2025** (vermelho / azul escuro)
-   - Rótulos numéricos no topo de cada barra (valores negativos em %)
-   - Título dinâmico conforme o gênero ("Homens" ou "Mulheres") e legenda no topo
-   - Estilo visual coerente com o design system (bordas, cores em `oklch`, gradiente dourado nos badges)
+3. Exibir as perguntas do questionário na página
+- Garantir que o componente com as perguntas seja mostrado na rota do questionário.
+- Manter o layout atual da página e o formulário já criado, sem alterar o conteúdo das perguntas.
 
-2. Atualizar `src/components/salary-charts.tsx`:
-   - Logo abaixo do `<ChartCard>` de **Homens**, renderizar `<SectorGapChart gender="male" />`
-   - Logo abaixo do `<ChartCard>` de **Mulheres**, renderizar `<SectorGapChart gender="female" />`
-   - Manter o grid de 2 colunas; os dois novos gráficos ocuparão o espaço em branco abaixo dos atuais
+4. Validar o fluxo no preview
+- Testar o clique no botão.
+- Confirmar que a tela abre e que as perguntas aparecem normalmente.
 
-## Dados
-
-Como o banco `salary_entries` ainda não armazena o setor da contratação por ano de comparação, vou usar **dados estáticos ilustrativos** baseados na imagem de referência (mesmos números mostrados: -13,7 / -14,3 no Total, -11,4 / -13,7 em Indústria, etc.) para o gráfico das mulheres, e um conjunto espelhado/positivo de referência para o gráfico dos homens (todos próximos de 0 já que a comparação é em relação ao próprio gênero como base).
-
-> Se preferir, posso em vez disso criar uma migração no banco para guardar esses valores por setor/ano e alimentar os gráficos via Supabase — me avise.
-
-## Detalhes técnicos
-
-- Biblioteca: `recharts` (já em uso) com `BarChart` + `LabelList` para os rótulos numéricos.
-- Tokens semânticos do `src/styles.css` para cores (sem hex hardcoded em componentes, exceto a paleta já existente `COLORS_M` / `COLORS_F`).
-- Componente puro de apresentação, sem alterações em backend nem em rotas.
-
-## Arquivos
-
-- **Novo:** `src/components/sector-gap-chart.tsx`
-- **Editado:** `src/components/salary-charts.tsx` (apenas inserção dos dois novos componentes no grid)
+Detalhes técnicos
+- O problema mais provável está na configuração atual das rotas: `dashboard.questionario.tsx` foi registrado como rota filha de `/dashboard`, mas `src/routes/dashboard.tsx` não renderiza `<Outlet />`, então a rota filha não aparece.
+- A correção deve seguir um destes caminhos:
+  - transformar o questionário em rota independente; ou
+  - manter como rota filha e adaptar a rota pai para suportar conteúdo filho com `Outlet`.
+- Vou aplicar a solução mais simples e segura, sem mexer no conteúdo do formulário.

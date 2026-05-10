@@ -9,10 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuestionarioRouteImport } from './routes/questionario'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardQuestionarioRouteImport } from './routes/dashboard.questionario'
 
+const QuestionarioRoute = QuestionarioRouteImport.update({
+  id: '/questionario',
+  path: '/questionario',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -23,43 +28,46 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardQuestionarioRoute = DashboardQuestionarioRouteImport.update({
-  id: '/questionario',
-  path: '/questionario',
-  getParentRoute: () => DashboardRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/questionario': typeof DashboardQuestionarioRoute
+  '/dashboard': typeof DashboardRoute
+  '/questionario': typeof QuestionarioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/questionario': typeof DashboardQuestionarioRoute
+  '/dashboard': typeof DashboardRoute
+  '/questionario': typeof QuestionarioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/questionario': typeof DashboardQuestionarioRoute
+  '/dashboard': typeof DashboardRoute
+  '/questionario': typeof QuestionarioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/dashboard/questionario'
+  fullPaths: '/' | '/dashboard' | '/questionario'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/dashboard/questionario'
-  id: '__root__' | '/' | '/dashboard' | '/dashboard/questionario'
+  to: '/' | '/dashboard' | '/questionario'
+  id: '__root__' | '/' | '/dashboard' | '/questionario'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRouteWithChildren
+  DashboardRoute: typeof DashboardRoute
+  QuestionarioRoute: typeof QuestionarioRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/questionario': {
+      id: '/questionario'
+      path: '/questionario'
+      fullPath: '/questionario'
+      preLoaderRoute: typeof QuestionarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -74,31 +82,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/questionario': {
-      id: '/dashboard/questionario'
-      path: '/questionario'
-      fullPath: '/dashboard/questionario'
-      preLoaderRoute: typeof DashboardQuestionarioRouteImport
-      parentRoute: typeof DashboardRoute
-    }
   }
 }
 
-interface DashboardRouteChildren {
-  DashboardQuestionarioRoute: typeof DashboardQuestionarioRoute
-}
-
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardQuestionarioRoute: DashboardQuestionarioRoute,
-}
-
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRouteWithChildren,
+  DashboardRoute: DashboardRoute,
+  QuestionarioRoute: QuestionarioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
