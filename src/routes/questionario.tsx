@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { OpinionSurveyForm } from "@/components/opinion-survey-form";
 import { AuthModal } from "@/components/auth-modal";
 
-export const Route = createFileRoute("/dashboard/questionario")({
+export const Route = createFileRoute("/questionario")({
   component: QuestionnairePage,
 });
 
