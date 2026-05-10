@@ -107,7 +107,7 @@ export function CompanyDashboard({ company }: { company: Company }) {
             </div>
           </div>
           <Button
-            onClick={() => navigate({ to: "/dashboard/questionario" })}
+            onClick={() => navigate({ to: "/questionario" })}
             className="bg-gradient-gold text-primary font-bold border-2 border-gold-deep shadow-gold hover:opacity-90"
           >
             Abrir questionário
