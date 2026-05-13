@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { LogOut, BarChart3 } from "lucide-react";
+import { LogOut } from "lucide-react";
+import logo from "@/assets/equisalario-logo.png";
 
 interface Props {
   onOpenLogin: () => void;
@@ -15,9 +16,7 @@ export function SiteHeader({ onOpenLogin }: Props) {
     <header className="sticky top-0 z-40 border-b-2 border-primary bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-blue shadow-blue">
-            <BarChart3 className="h-5 w-5 text-gold" />
-          </div>
+          <img src={logo} alt="EquiSalário" className="h-10 w-10 object-contain" />
           <span className="text-lg font-bold tracking-tight text-primary">
             Equi<span className="text-gold">Salário</span>
           </span>
