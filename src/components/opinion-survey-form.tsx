@@ -123,7 +123,7 @@ export function OpinionSurveyForm() {
         </Button>
         <div className="rounded-xl border-2 border-primary bg-gradient-blue p-6 text-primary-foreground shadow-blue">
           <p className="text-xs uppercase tracking-wider text-gold">Pesquisa de opinião</p>
-          <h1 className="mt-1 text-3xl font-bold">Desigualdade salarial no Brasil</h1>
+          <h1 className="mt-1 text-3xl font-bold text-gold">Desigualdade salarial no Brasil</h1>
           <p className="mt-1 text-sm opacity-90">
             Sua opinião é anônima e ajuda a entender a percepção da população sobre o tema.
           </p>
