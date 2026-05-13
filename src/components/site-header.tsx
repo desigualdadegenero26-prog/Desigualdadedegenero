@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { LogOut, BarChart3 } from "lucide-react";
+import { LogOut } from "lucide-react";
+import logo from "@/assets/equisalario-logo.png";
 
 interface Props {
   onOpenLogin: () => void;
