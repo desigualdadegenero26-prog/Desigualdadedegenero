@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { SalaryCharts } from "@/components/salary-charts";
 import { AboutSection } from "@/components/about-section";
 import { AuthModal } from "@/components/auth-modal";
+import { DecorativeFrame } from "@/components/decorative-frame";
 
 
 
@@ -18,10 +19,16 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
-      <main>
-        <HeroSection onJoin={() => setAuthOpen(true)} />
-        <SalaryCharts />
-        <AboutSection />
+      <main className="space-y-10 px-4 py-10 md:px-8">
+        <DecorativeFrame className="p-6 md:p-10">
+          <HeroSection onJoin={() => setAuthOpen(true)} />
+        </DecorativeFrame>
+        <DecorativeFrame className="p-6 md:p-10">
+          <SalaryCharts />
+        </DecorativeFrame>
+        <DecorativeFrame className="p-6 md:p-10">
+          <AboutSection />
+        </DecorativeFrame>
       </main>
       <footer className="border-t-2 border-primary bg-card py-8">
         <div className="mx-auto max-w-7xl px-4 text-center text-sm text-muted-foreground">
