@@ -5,6 +5,8 @@ import { HeroSection } from "@/components/hero-section";
 import { SalaryCharts } from "@/components/salary-charts";
 import { AboutSection } from "@/components/about-section";
 import { AuthModal } from "@/components/auth-modal";
+import borderLeft from "@/assets/border-left.png";
+import borderRight from "@/assets/border-right.png";
 
 
 
@@ -16,7 +18,17 @@ function Index() {
   const [authOpen, setAuthOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-y-0 left-0 z-40 hidden w-16 bg-repeat-y md:block lg:w-20"
+        style={{ backgroundImage: `url(${borderLeft})`, backgroundSize: "100% auto" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-y-0 right-0 z-40 hidden w-16 bg-repeat-y md:block lg:w-20"
+        style={{ backgroundImage: `url(${borderRight})`, backgroundSize: "100% auto" }}
+      />
       <SiteHeader onOpenLogin={() => setAuthOpen(true)} />
       <main>
         <HeroSection onJoin={() => setAuthOpen(true)} />
