@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { SalaryCharts } from "@/components/salary-charts";
 import { AboutSection } from "@/components/about-section";
 import { AuthModal } from "@/components/auth-modal";
+import { CsvResultsSection } from "@/components/csv-results-section";
 
 
 
@@ -21,6 +22,7 @@ function Index() {
       <main>
         <HeroSection onJoin={() => setAuthOpen(true)} />
         <SalaryCharts />
+        <CsvResultsSection />
         <AboutSection />
       </main>
       <footer className="border-t-2 border-primary bg-card py-8">
