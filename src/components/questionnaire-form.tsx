@@ -16,6 +16,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { submitQuestionnaireCsv } from "@/lib/csv-questionario.functions";
 
 const REGIONS = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"];
 const RACES = ["Branca", "Preta", "Parda", "Amarela", "Indígena", "Prefiro não informar"];
@@ -78,6 +80,8 @@ export function QuestionnaireForm({ company }: { company: Company }) {
   const [form, setForm] = useState(initialForm(company.region));
   const [loading, setLoading] = useState(false);
   const [submittedCount, setSubmittedCount] = useState(0);
+  const [submissionId, setSubmissionId] = useState(() => crypto.randomUUID());
+  const submitCsv = useServerFn(submitQuestionnaireCsv);
 
   const update = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -105,18 +109,24 @@ export function QuestionnaireForm({ company }: { company: Company }) {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("salary_entries").insert({
-      ...parsed.data,
-      company_id: company.id,
-    });
-    setLoading(false);
-    if (error) {
-      toast.error(error.message);
-      return;
+    try {
+      const res = await submitCsv({
+        data: { ...parsed.data, company_id: company.id, submission_id: submissionId },
+      });
+      if (!res.duplicate) {
+        // Mantém o painel da empresa funcionando
+        await supabase.from("salary_entries").insert({ ...parsed.data, company_id: company.id });
+      }
+      window.dispatchEvent(new Event("csv-updated"));
+      toast.success(res.duplicate ? "Este registro já havia sido enviado." : "Registro salvo no arquivo CSV!");
+      setSubmittedCount((c) => c + (res.duplicate ? 0 : 1));
+      setForm(initialForm(company.region));
+      setSubmissionId(crypto.randomUUID());
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Falha ao salvar o registro.");
+    } finally {
+      setLoading(false);
     }
-    toast.success("Registro enviado!");
-    setSubmittedCount((c) => c + 1);
-    setForm(initialForm(company.region));
   };
 
   return (
